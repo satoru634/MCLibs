@@ -4,6 +4,7 @@ using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
@@ -25,7 +26,7 @@ namespace MCToolsCommonLib.Utils
         protected string JarPath { get; set; }
 
         /// <summary>
-        /// 言語設定を保持します。
+        /// 言語設定を保持するプロパティ
         /// </summary>
         protected string LanguageCode { get; set; }
 
@@ -48,7 +49,7 @@ namespace MCToolsCommonLib.Utils
         /// 指定されたJARファイルのパスを使用して新しいインスタンスを初期化する。
         /// </summary>
         /// <param name="jarPath">JARファイルのパス</param>
-        public JarLoader(string jarPath, string languageCode, string version)
+        public JarLoader(string jarPath, string languageCode, string version = "")
         {
             JarPath = jarPath;
             LanguageCode = languageCode;
@@ -79,10 +80,29 @@ namespace MCToolsCommonLib.Utils
         }
 
         /// <summary>
+        /// 指定されたパスがJARファイル内に存在するかどうかを確認する。
+        /// </summary>
+        /// <param name="targetPath"></param>
+        /// <returns>存在する場合はtrue、存在しない場合はfalse</returns>
+        public bool Exists(string targetPath)
+        {
+            using (ZipArchive zip = ZipFile.OpenRead(JarPath))
+            {
+                var found = zip.Entries.Where(entry => entry.FullName == targetPath).ToList();
+                if (found.Count == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// JARファイル内の名前空間を取得する。
         /// </summary>
         /// <returns>名前空間の文字列</returns>
-        private string GetNameSpace()
+        public string GetNameSpace()
         {
             string nameSpace = "minecraft";
             using (ZipArchive zip = ZipFile.OpenRead(JarPath))
@@ -169,6 +189,11 @@ namespace MCToolsCommonLib.Utils
             using (ZipArchive zip = ZipFile.OpenRead(JarPath))
             {
                 var found = zip.Entries.Where(entry => entry.FullName == targetPath).ToList();
+                if (found.Count == 0)
+                {
+                    return img;
+                }
+
                 ImageConverter converter = new ImageConverter();
                 byte[]? imgBytes = (byte[]?)converter.ConvertTo(Image.FromStream(found[0].Open()), typeof(byte[]));
                 if (imgBytes != null)
