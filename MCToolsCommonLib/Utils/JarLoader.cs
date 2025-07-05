@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using Windows.Globalization;
 
 namespace MCToolsCommonLib.Utils
@@ -194,11 +194,14 @@ namespace MCToolsCommonLib.Utils
                     return img;
                 }
 
-                ImageConverter converter = new ImageConverter();
-                byte[]? imgBytes = (byte[]?)converter.ConvertTo(Image.FromStream(found[0].Open()), typeof(byte[]));
-                if (imgBytes != null)
+                using (Stream entryStream = found[0].Open())
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    using var mat = Mat.FromImageData(imgBytes, ImreadModes.Unchanged);
+                    entryStream.CopyTo(memoryStream);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                    // 画像データをOpenCVのMat形式に変換
+                    using var mat = Mat.FromImageData(memoryStream.ToArray(), ImreadModes.Unchanged);
                     if (mat.Type() == MatType.CV_8UC3)
                     {
                         // 3チャンネル(BGR)→4チャンネル(BGRA)へ変換
