@@ -179,6 +179,50 @@ namespace MCToolsCommonLib.Utils
         }
 
         /// <summary>
+        /// 指定されたパスのフォルダをJARファイルから解凍する。
+        /// </summary>
+        /// <param name="basePath">基準パス</param>
+        /// <param name="unzipBasePath">解凍先基準パス</param>
+        /// <returns></returns>
+        public string UnzipFolder(string basePath, string unzipBasePath)
+        {
+            try
+            {
+                using (ZipArchive zip = ZipFile.OpenRead(JarPath))
+                {
+                    // 指定されたパスのエントリを取得
+                    var entries = zip.Entries.Where(entry => entry.FullName.StartsWith(basePath)).ToList();
+                    if (entries.Count == 0)
+                    {
+                        return $"No entries found for path: {basePath}";
+                    }
+
+                    foreach (var entry in entries)
+                    {
+                        // 出力先のパスを生成
+                        string destinationPath = Path.Combine(unzipBasePath, entry.FullName.Substring(basePath.Length).TrimStart('/'));
+                        string directoryPath = Path.GetDirectoryName(destinationPath) ?? "";
+
+                        // ディレクトリが存在しない場合は作成
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            Directory.CreateDirectory(directoryPath);
+                        }
+
+                        // ファイルを抽出
+                        entry.ExtractToFile(destinationPath, true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"{ex.Message}";
+            }
+
+            return "";
+        }
+
+        /// <summary>
         /// 指定されたパスの画像データを読み込み、OpenCVのMat形式で返す。
         /// </summary>
         /// <param name="targetPath">画像データのパス</param>

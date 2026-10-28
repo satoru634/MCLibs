@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCToolsCommonLib", "MCTools
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCModelRenderer", "MCModelRenderer\MCModelRenderer.csproj", "{0CDDD609-8928-4216-8030-78992BE07D65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCALib", "MCALib\MCALib.csproj", "{CDBB4965-BD87-43A5-B764-B5282DE9A85E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0CDDD609-8928-4216-8030-78992BE07D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CDDD609-8928-4216-8030-78992BE07D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CDDD609-8928-4216-8030-78992BE07D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDBB4965-BD87-43A5-B764-B5282DE9A85E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDBB4965-BD87-43A5-B764-B5282DE9A85E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDBB4965-BD87-43A5-B764-B5282DE9A85E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDBB4965-BD87-43A5-B764-B5282DE9A85E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

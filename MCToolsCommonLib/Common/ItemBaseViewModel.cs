@@ -8,10 +8,24 @@ namespace MCToolsCommonLib.Common
 {
     public class ItemBaseViewModel<T>
     {
+        /// <summary>
+        /// アイテムのリスト
+        /// </summary>
         public List<T> ItemList { get; set; }
+
+        /// <summary>
+        /// 選択されているアイテムのインデックス
+        /// </summary>
         public int SelectedIndex { get; set; }
+
+        /// <summary>
+        /// アイテムの選択を有効にするかどうかのフラグ
+        /// </summary>
         public bool Enable { get; set; }
 
+        /// <summary>
+        /// デフォルトコンストラクタ
+        /// </summary>
         public ItemBaseViewModel()
         {
             ItemList = new List<T>();
@@ -19,6 +33,10 @@ namespace MCToolsCommonLib.Common
             Enable = false;
         }
 
+        /// <summary>
+        /// コピーコンストラクタ
+        /// </summary>
+        /// <param name="data"></param>
         public ItemBaseViewModel(ItemBaseViewModel<T> data)
         {
             ItemList = data.ItemList;
@@ -26,6 +44,11 @@ namespace MCToolsCommonLib.Common
             Enable = data.Enable;
         }
 
+        /// <summary>
+        /// アイテムのリストを初期化し、選択されたアイテムを設定する
+        /// </summary>
+        /// <param name="items">アイテムのリスト</param>
+        /// <param name="selectedText">選択中のアイテム</param>
         public virtual void Init(List<T> items, T selectedText)
         {
             if (items.Count == 0)
@@ -45,12 +68,19 @@ namespace MCToolsCommonLib.Common
             return;
         }
 
+        /// <summary>
+        /// アイテムを追加
+        /// </summary>
+        /// <param name="data">追加するアイテム</param>
         public virtual void Add(T data)
         {
             ItemList.Add(data);
             return;
         }
 
+        /// <summary>
+        /// アイテムを削除
+        /// </summary>
         public virtual void Clear()
         {
             ItemList.Clear();
