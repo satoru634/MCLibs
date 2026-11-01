@@ -14,16 +14,17 @@ MCLibs は、Minecraft Java Edition 用ツール群（MCItemViewer など）で�
 - プルリクマージ後は、作業ブランチをローカル・リモート共に削除し、master ブランチを最新にする。
 - 公開 API を変更する場合は、このライブラリを参照している各ツールへの影響を確認すること。
 
-## ビルド
+## ビルド / テスト
 
 ```bash
 dotnet build MCLibs.sln
+dotnet test MCLibs.sln
 ```
 
 ## 詳細ドキュメント
 
 作業内容に応じて必要なものを参照してください。
 
-- [.claude/docs/build.md](.claude/docs/build.md) — ビルド手順、依存パッケージ、利用側からの参照方法
+- [.claude/docs/build.md](.claude/docs/build.md) — ビルド・テスト手順、依存パッケージ、利用側からの参照方法
 - [.claude/docs/architecture.md](.claude/docs/architecture.md) — プロジェクト構成、モデル読み込みと描画の流れ
 - [.claude/docs/quirks.md](.claude/docs/quirks.md) — 綴りや名前空間の癖、バージョン依存の処理、既知の制限

@@ -481,7 +481,7 @@ namespace MCModelRenderer.Utils
             string itemName = ItemID.Replace($"{NameSpace}:", "");
             var spawnEggColor = CommonLib.DeserializeJson<Dictionary<string, string>>(color);
             var spawnEggColorSet = spawnEggColor.FirstOrDefault(x => x.Key == itemName);
-            if (colorSet.Equals(default(KeyValuePair<string, string>)))
+            if (spawnEggColorSet.Equals(default(KeyValuePair<string, string>)))
             {
                 return "";
             }
