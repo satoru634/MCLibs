@@ -5,7 +5,8 @@
 ```
 MCLibs.sln
 ├── MCToolsCommonLib   汎用ヘルパー（他のどのプロジェクトにも依存しない）
-└── MCModelRenderer    モデル読み込み・3D描画（MCToolsCommonLib に依存）
+├── MCModelRenderer    モデル読み込み・3D描画（MCToolsCommonLib に依存）
+└── MCLibsTests        xUnit のユニットテスト（両ライブラリに依存）
 ```
 
 ### MCToolsCommonLib
