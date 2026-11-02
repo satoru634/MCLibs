@@ -358,7 +358,7 @@ namespace MCLibsTests.MCModelRenderer.Utils
             Assert.Equal(new Vec4b(255, 255, 255, 255), loader.Model.TextureImages["layer"].GetIndexer()[0, 0]);
         }
 
-        [Fact(Skip = "既知の不具合: 未登録のアイテム名では FirstOrDefault の Key が null になり、ContainsKey(null) で ArgumentNullException が発生する")]
+        [Fact]
         public void LoadModel_UnknownName_ResetsModelAndKeepsSelection()
         {
             using var loader = new BlockModelLoarder(_jarPath, "en_us", Version);
