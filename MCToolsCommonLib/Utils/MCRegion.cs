@@ -89,7 +89,10 @@ namespace MCToolsCommonLib.Utils
         /// <returns></returns>
         public int HeaderOffset(int chunkX, int chunkZ)
         {
-            return 4 * (chunkX % 32 + chunkZ % 32 * 32);
+            // C# の % は負の値に対して負の結果を返すため、リージョン内座標(0～31)に補正する
+            int localX = ((chunkX % 32) + 32) % 32;
+            int localZ = ((chunkZ % 32) + 32) % 32;
+            return 4 * (localX + localZ * 32);
         }
 
         /// <summary>

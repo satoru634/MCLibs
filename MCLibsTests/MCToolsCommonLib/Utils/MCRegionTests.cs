@@ -94,13 +94,15 @@ namespace MCLibsTests.MCToolsCommonLib.Utils
             Assert.Equal(expected, region.HeaderOffset(chunkX, chunkZ));
         }
 
-        [Fact(Skip = "既知の不具合: 負のチャンク座標で % が負の値を返すため、オフセットが負になる")]
-        public void HeaderOffset_NegativeChunk_WrapsIntoRegion()
+        [Theory]
+        [InlineData(-1, -1, 4092)]  // リージョン(-1, -1) 内の (31, 31)
+        [InlineData(-32, 0, 0)]     // リージョン(-1, 0) 内の (0, 0)
+        [InlineData(-33, -2, 3964)] // リージョン(-2, -1) 内の (31, 30)
+        public void HeaderOffset_NegativeChunk_WrapsIntoRegion(int chunkX, int chunkZ, int expected)
         {
             using var region = new MCRegion();
 
-            // チャンク(-1, -1) はリージョン(-1, -1) 内の (31, 31)
-            Assert.Equal(4092, region.HeaderOffset(-1, -1));
+            Assert.Equal(expected, region.HeaderOffset(chunkX, chunkZ));
         }
 
         // ── GetChunkLocation ──────────────────────────────────────────────────
