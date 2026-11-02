@@ -7,6 +7,9 @@ MCLibs.sln
 ├── MCToolsCommonLib   汎用ヘルパー（他のどのプロジェクトにも依存しない）
 ├── MCModelRenderer    モデル読み込み・3D描画（MCToolsCommonLib に依存）
 └── MCLibsTests        xUnit のユニットテスト（両ライブラリに依存）
+    ├── Helpers/          テスト用ヘルパー（一時フォルダ、ダミー jar / .minecraft 構成の作成など）
+    ├── MCToolsCommonLib/ MCToolsCommonLib のテスト（名前空間ごとのフォルダ）
+    └── MCModelRenderer/  MCModelRenderer のテスト（名前空間ごとのフォルダ）
 ```
 
 ### MCToolsCommonLib
