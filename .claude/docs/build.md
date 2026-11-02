@@ -24,7 +24,8 @@ MCModelRenderer は MCToolsCommonLib を `ProjectReference` で参照してい�
 
 ## テスト
 
-- テストプロジェクトは `MCLibsTests`（xUnit）です。両ライブラリを `ProjectReference` で参照しています。
+- テストプロジェクトは `MCLibsTests`（xUnit v3: `xunit.v3`）です。両ライブラリを `ProjectReference` で参照しています。
+- `dotnet test`（VSTest）からテストを検出・実行するため、`xunit.runner.visualstudio`（3.x）も参照しています。外すと「使用できるテストはありません」となり、テストが1件も実行されません。
 - テストファイルは、対象クラスの名前空間に合わせて `MCLibsTests/<名前空間のフォルダ>/<クラス名>Tests.cs` に配置します（例: `MCLibsTests/MCModelRenderer/Utils/BlockModelLoarderTests.cs`）。テストクラスの名前空間は `MCLibsTests.<対象の名前空間>` です。`ResourcePackInfo` は名前空間が `MCToolsCommonLib.Util` のため、テストも `MCLibsTests/MCToolsCommonLib/Util/` に置きます。
 - テストメソッド名は `<メソッド名>_<条件>_<期待結果>`（英語）とし、メソッドごとに `// ── <メソッド名> ───` の区切りコメントを入れます。本文は Arrange / Act / Assert を空行で区切ります。
 - ファイルを扱うテストは `IDisposable` を実装し、`TempDirectory` で作った一時フォルダを `Dispose` で削除します。
