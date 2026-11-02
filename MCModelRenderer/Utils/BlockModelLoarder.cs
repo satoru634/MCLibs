@@ -155,10 +155,10 @@ namespace MCModelRenderer.Utils
         {
             Model?.Dispose();
 
-            // アイテム名からアイテムIDを取得
-            string itemID = _itemTypeList.FirstOrDefault(x => x.Value.Name == itemName).Key;
+            // アイテム名からアイテムIDを取得（未登録の場合は空文字）
+            string itemID = GetItemID(itemName);
 
-            // アイテムIDを取得
+            // 未登録のアイテムの場合は空のモデルにする
             if (!_itemTypeList.ContainsKey(itemID))
             {
                 Model = new BlockModel();
