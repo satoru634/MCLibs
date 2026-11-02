@@ -157,7 +157,7 @@ namespace MCLibsTests.MCToolsCommonLib.Util
             Assert.Equal("", path);
         }
 
-        [Fact(Skip = "既知の不具合: zip の検索時に targetPath を書き換えるため、2つ目以降の zip では \"assets/assets/...\" を探してしまう")]
+        [Fact]
         public void SearchResource_ResourceInSecondZip_ReturnsSecondZip()
         {
             CreateZipPack("PackA.zip", "minecraft", null, new Scalar(0, 0, 0, 255));
