@@ -72,13 +72,40 @@ namespace MCLibsTests.MCToolsCommonLib.BaseData
             Assert.False(baseRange.IsCollisionWithRect(new PointRange(100, 100, 1)));
         }
 
-        [Fact(Skip = "既知の不具合: 対象側の左上座標を +Range でシフトしているため、対象の矩形が正しく計算されない")]
+        [Fact]
         public void IsCollisionWithRect_TargetRectOverlapsBaseRect_ReturnsTrue()
         {
             // 基準: X,Z ともに -5～5、対象: X が 3～13、Z が -5～5 → 重なっている
             var baseRange = new PointRange(0, 0, 5);
 
             Assert.True(baseRange.IsCollisionWithRect(new PointRange(8, 0, 5)));
+        }
+
+        [Fact]
+        public void IsCollisionWithRect_TargetRectOverlapsFromNegativeSide_ReturnsTrue()
+        {
+            // 基準: X,Z ともに -5～5、対象: X が -13～-3、Z が -13～-3 → 左上側で重なっている
+            var baseRange = new PointRange(0, 0, 5);
+
+            Assert.True(baseRange.IsCollisionWithRect(new PointRange(-8, -8, 5)));
+        }
+
+        [Fact]
+        public void IsCollisionWithRect_TargetRectTouchingEdge_ReturnsTrue()
+        {
+            // 基準: X が -5～5、対象: X が 5～15 → 辺が接している
+            var baseRange = new PointRange(0, 0, 5);
+
+            Assert.True(baseRange.IsCollisionWithRect(new PointRange(10, 0, 5)));
+        }
+
+        [Fact]
+        public void IsCollisionWithRect_TargetRectSeparated_ReturnsFalse()
+        {
+            // 基準: X が -5～5、対象: X が 6～16 → 離れている
+            var baseRange = new PointRange(0, 0, 5);
+
+            Assert.False(baseRange.IsCollisionWithRect(new PointRange(11, 0, 5)));
         }
 
         // ── IsCollisionWithRect(Point3D, Point3D) ─────────────────────────────

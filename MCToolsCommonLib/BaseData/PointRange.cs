@@ -69,7 +69,7 @@ namespace MCToolsCommonLib.BaseData
 
             PointXZ targetLT = new PointXZ(target.Point);
             PointXZ targetRB = new PointXZ(target.Point);
-            targetLT.ShiftAll(target.Range);
+            targetLT.ShiftAll(-target.Range);
             targetRB.ShiftAll(target.Range);
             return baseLT.X <= targetRB.X && targetLT.X <= baseRB.X && baseLT.Z <= targetRB.Z && targetLT.Z <= baseRB.Z;
         }
