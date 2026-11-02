@@ -438,7 +438,7 @@ namespace MCLibsTests.MCToolsCommonLib.Common
             Assert.Equal(["name,value", "a,1", "b,2"], lines);
         }
 
-        [Fact(Skip = "既知の不具合: Read() を呼ばずに GetRecord<List<T>>() を呼んでいるため、CSV を読み込めない")]
+        [Fact]
         public void ReadCsv_WrittenByWriteCsv_ReturnsSameRecords()
         {
             string path = _temp.Combine("roundtrip.csv");
@@ -450,6 +450,26 @@ namespace MCLibsTests.MCToolsCommonLib.Common
             Assert.Equal(2, loaded.Count);
             Assert.Equal("a", loaded[0].Name);
             Assert.Equal(2, loaded[1].Value);
+        }
+
+        [Fact]
+        public void ReadCsv_UsesClassMapHeaderNames()
+        {
+            string path = _temp.WriteText("value,name\n10,x\n", "mapped.csv");
+
+            var loaded = CommonLib.ReadCsv<CsvRow, CsvRowMap>(path);
+
+            var row = Assert.Single(loaded);
+            Assert.Equal("x", row.Name);
+            Assert.Equal(10, row.Value);
+        }
+
+        [Fact]
+        public void ReadCsv_HeaderOnly_ReturnsEmpty()
+        {
+            string path = _temp.WriteText("name,value\n", "empty.csv");
+
+            Assert.Empty(CommonLib.ReadCsv<CsvRow, CsvRowMap>(path));
         }
 
         // ── ReadJson ──────────────────────────────────────────────────────────

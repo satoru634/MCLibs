@@ -442,7 +442,9 @@ namespace MCToolsCommonLib.Common
             using (CsvReader csv = new CsvReader(sr, CultureInfo.InvariantCulture))
             {
                 csv.Context.RegisterClassMap<TMap>();
-                data = csv.GetRecord<List<T>>();
+
+                // GetRecords は遅延評価のため、リーダーを閉じる前にリスト化する
+                data = csv.GetRecords<T>().ToList();
             }
 
             return data;
