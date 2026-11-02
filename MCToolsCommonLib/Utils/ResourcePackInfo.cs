@@ -83,10 +83,11 @@ namespace MCToolsCommonLib.Util
 
                     // ZIPファイルの場合
                     case "zip":
-                        targetPath = $"assets/{targetPath}";
+                        // 次のリソースパックの検索に影響しないよう、targetPath は書き換えない
+                        string entryPath = $"assets/{targetPath}";
                         using (ZipArchive zip = ZipFile.OpenRead(info.AssetsDirPath))
                         {
-                            var found = zip.Entries.Where(entry => entry.FullName == targetPath).ToList();
+                            var found = zip.Entries.Where(entry => entry.FullName == entryPath).ToList();
                             if (found.Count > 0)
                             {
                                 // ZIP内でパスが見つかった場合はそのパスを返す
